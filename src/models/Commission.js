@@ -10,8 +10,29 @@ export default class Commission extends service.Model {
 
   static label = 'Commission';
   static title = 'title';
-  static defaultColumns = 'title user order amount level state createdAt balancedAt';
+  static defaultColumns = 'title user contributor order amount level state createdAt balancedAt';
   static defaultSort = '-createdAt';
+
+  static api = {
+    list: 3
+  };
+
+  static populations = {
+    contributor: {
+      select: '@tiny'
+    }
+  };
+
+  static actions = {
+    balance: {
+      title: 'Balance now',
+      style: 'success',
+      sled: 'Balance',
+      depends: {
+        state: 0
+      }
+    }
+  };
 
   static fields = {
     title: {
@@ -23,6 +44,10 @@ export default class Commission extends service.Model {
       label: 'User',
       ref: 'user.User',
       index: true
+    },
+    contributor: {
+      label: 'Contributor',
+      ref: 'user.User'
     },
     order: {
       label: 'Order',

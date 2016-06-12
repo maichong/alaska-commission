@@ -12,5 +12,6 @@ export default {
   'Balanced At': 'Balanced At',
   Unbalanced: 'Unbalanced',
   Balanced: 'Balanced',
-  Invalid: 'Invalid'
+  Invalid: 'Invalid',
+  'Balance now': 'Balance'
 };

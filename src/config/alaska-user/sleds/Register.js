@@ -9,9 +9,14 @@ const User = service.model('User');
 export async function pre() {
   let ctx = this.data.ctx;
   let user = this.data.user;
-  if (this.data.promoter || !ctx) return;
+  if (this.data.promoter || !ctx || (user && user.promoter)) return;
   let promoter = ctx.cookies.get('promoter');
-  if (!promoter) return;
+  if (!promoter && !service.util.isObjectId(promoter)) return;
   promoter = await User.findCache(promoter);
-  if (promoter) user.promoter = promoter._id;
+  if (promoter) {
+    this.data.promoter = promoter._id;
+    if (user) {
+      user.promoter = promoter._id;
+    }
+  }
 }

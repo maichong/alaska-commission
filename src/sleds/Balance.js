@@ -22,7 +22,7 @@ export default class Balance extends service.Sled {
     let commission = data.commission;
 
     if (commission.state) {
-      return commission;
+      return commission.toObject();
     }
 
     try {
@@ -52,6 +52,6 @@ export default class Balance extends service.Sled {
       commission.error = error.message;
     }
     await commission.save();
-    return commission;
+    return commission.toObject();
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "alaska-commission",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Alaska commission service",
   "keywords": [
     "alaska",
@@ -29,5 +29,8 @@
   "homepage": "https://github.com/maichong/alaska-commission#readme",
   "peerDependencies": {
     "alaska": "*"
+  },
+  "dependencies": {
+    "alaska-balance": "^0.9.5"
   }
 }

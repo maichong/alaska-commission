@@ -14,6 +14,7 @@ export default class Create extends service.Sled {
    * @param {Object} data
    *                 data.title     标题
    *                 data.user      用户
+   *                 [data.contributor] 贡献者
    *                 [data.order]   关联订单
    *                 [data.main]    主佣金
    *                 [data.currency]佣金货币
@@ -32,6 +33,9 @@ export default class Create extends service.Sled {
     }
     if (!data.title && data.order && data.order.title) {
       data.title = data.order.title;
+    }
+    if (!data.contributor && data.order && data.order.user) {
+      data.contributor = data.order.user;
     }
     if (!data.amount && data.amount !== 0) {
       if (!data.price) throw new Error('amount or price is required when create commission');

@@ -13,4 +13,18 @@ export default class CommissionService extends alaska.Service {
     options.id = options.id || 'alaska-commission';
     super(options, alaska);
   }
+
+  postLoadConfig() {
+    const MAIN = this.alaska.main;
+    MAIN.applyConfig({
+      '+appMiddlewares': [{
+        id: __dirname + '/middlewares/promoter.js',
+        sort: 0,
+        options: {
+          queryKey: this.config('queryKey'),
+          cookieOptions: this.config('cookieOptions')
+        }
+      }]
+    });
+  }
 }
