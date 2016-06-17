@@ -4,9 +4,12 @@
  * @author Liang <liang@maichong.it>
  */
 
+import _ from 'lodash';
 import Commission from '../models/Commission';
 const User = service.model('user.User');
 const commissionRates = service.config('commissionRates');
+const currencies = service.service('balance').currenciesMap;
+const defaultCurrency = service.service('balance').defaultCurrency;
 
 export default class Create extends service.Sled {
   /**
@@ -44,7 +47,11 @@ export default class Create extends service.Sled {
         rate = commissionRates[data.level - 1];
       }
       if (!rate) throw new Error('can not determine commission rate');
-      data.amount = rate * data.price;
+      let currency = defaultCurrency;
+      if (data.currency && currencies[data.currency]) {
+        currency = currencies[data.currency];
+      }
+      data.amount = _.round(rate * data.price, currency.precision);
     }
     let commission = new Commission(data);
 
