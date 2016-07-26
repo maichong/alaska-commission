@@ -5,13 +5,13 @@
  */
 
 import _ from 'lodash';
+import alaska from 'alaska';
+import service from '../';
+import BALANCE from 'alaska-balance';
+import User from 'alaska-user/models/User';
 import Commission from '../models/Commission';
-const User = service.model('user.User');
-const commissionRates = service.config('commissionRates');
-const currencies = service.service('balance').currenciesMap;
-const defaultCurrency = service.service('balance').defaultCurrency;
 
-export default class Create extends service.Sled {
+export default class Create extends alaska.Sled {
   /**
    * amount 或 price/rate 必选,如果未指定rate,则必须指定level并设置全局commissionRates
    * @param {Object} data
@@ -30,6 +30,11 @@ export default class Create extends service.Sled {
    */
   async exec(data) {
     if (!data.user) throw new Error('user required when create commission');
+
+    const commissionRates = service.config('commissionRates');
+    const currencies = BALANCE.currenciesMap;
+    const defaultCurrency = BALANCE.defaultCurrency;
+
     data.level = data.level || 1;
     if (!data.currency && data.order && data.order.currency) {
       data.currency = data.order.currency;

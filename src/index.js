@@ -6,7 +6,7 @@
 
 import alaska from 'alaska';
 
-export default class CommissionService extends alaska.Service {
+class CommissionService extends alaska.Service {
   constructor(options, alaska) {
     options = options || {};
     options.dir = options.dir || __dirname;
@@ -15,8 +15,7 @@ export default class CommissionService extends alaska.Service {
   }
 
   postLoadConfig() {
-    const MAIN = this.alaska.main;
-    MAIN.applyConfig({
+    alaska.main.applyConfig({
       '+appMiddlewares': [{
         id: __dirname + '/middlewares/promoter.js',
         sort: 0,
@@ -28,3 +27,5 @@ export default class CommissionService extends alaska.Service {
     });
   }
 }
+
+export default new CommissionService();

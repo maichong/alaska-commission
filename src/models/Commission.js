@@ -4,11 +4,13 @@
  * @author Liang <liang@maichong.it>
  */
 
-const BALANCE = service.service('balance');
+import alaska from 'alaska';
+import BALANCE from 'alaska-balance';
 
-export default class Commission extends service.Model {
+export default class Commission extends alaska.Model {
 
   static label = 'Commission';
+  static icon = 'money';
   static title = 'title';
   static defaultColumns = 'title user contributor order amount level state createdAt balancedAt';
   static defaultSort = '-createdAt';
@@ -42,12 +44,12 @@ export default class Commission extends service.Model {
     },
     user: {
       label: 'User',
-      ref: 'user.User',
+      ref: 'alaska-user.User',
       index: true
     },
     contributor: {
       label: 'Contributor',
-      ref: 'user.User'
+      ref: 'alaska-user.User'
     },
     order: {
       label: 'Order',

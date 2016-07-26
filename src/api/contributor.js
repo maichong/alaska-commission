@@ -5,7 +5,8 @@
  */
 
 import _ from 'lodash';
-const User = service.model('user.User');
+import service from '../';
+import User from 'alaska-user/models/User';
 
 export default async function (ctx) {
   let user = ctx.user || service.error(403);

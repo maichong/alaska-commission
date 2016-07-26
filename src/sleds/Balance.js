@@ -4,13 +4,12 @@
  * @author Liang <liang@maichong.it>
  */
 
-const User = service.model('user.User');
-
-const currencies = service.service('balance').currenciesMap;
-
 import _ from 'lodash';
+import alaska from 'alaska';
+import User from 'alaska-user/models/User';
+import BALANCE from 'alaska-balance';
 
-export default class Balance extends service.Sled {
+export default class Balance extends alaska.Sled {
 
   /**
    * @param data
@@ -34,7 +33,7 @@ export default class Balance extends service.Sled {
         throw new Error('can not find user');
       }
 
-      let currency = currencies[commission.currency];
+      let currency = BALANCE.currenciesMap[commission.currency];
       if (!currency) {
         throw new Error('can not find currency');
       }
